@@ -1,3 +1,6 @@
+const redux = require("redux"); // Import redux library
+const createStore = redux.createStore; // Import createStore function from redux
+
 // Define a constant for the action type
 const BUY_CAKE = "BUY_CAKE";
 
@@ -35,3 +38,19 @@ const reducer = (state = initialState, action) => {
       return state; // Return unchanged state for unknown action types
   }
 };
+
+const store = createStore(reducer); // Create a store with the reducer
+
+console.log("Initial state:", store.getState()); // Log the initial state, getState() is a method of the store
+
+// At this point you are subscribed – Redux saves this function in the "Subscriptions" list.
+// store.subscribe() is a method to listen for state changes, it will be called whenever an action is dispatched
+const unsubscribe = store.subscribe(() => {
+  console.log("Updated state:", store.getState());
+});
+
+store.dispatch(buyCake()); // Dispatch the buyCake action to update the state and there for also calls store.subscribe()
+store.dispatch(buyCake()); // Dispatch another buyCake action to update the state again and there for also calls store.subscribe()
+store.dispatch(buyCake()); // Dispatch another buyCake action to update the state again and there for also calls store.subscribe()
+unsubscribe(); // Unsubscribe from the store to stop listening for state changes
+console.log("Unsubscribed from store"); // Log that we have unsubscribed
