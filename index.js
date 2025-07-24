@@ -4,10 +4,21 @@ const createStore = redux.createStore; // Import createStore function from redux
 // Define a constant for the action type
 const BUY_CAKE = "BUY_CAKE";
 
+// Define an additional constant for an action type
+const BUY_ICECREAM = "BUY_ICECREAM";
+
 // Action creator: returns an action object with a 'type' field
 function buyCake() {
   return {
     type: BUY_CAKE,
+    info: "First redux action", // Optional metadata
+  };
+}
+
+// An additional Action creator: returns an additional action object with a 'type' field
+function buyIceCream() {
+  return {
+    type: BUY_ICECREAM,
     info: "First redux action", // Optional metadata
   };
 }
@@ -23,6 +34,7 @@ function buyCake() {
 // Define the initial state of the application
 const initialState = {
   numOfCakes: 10,
+  numOfIceCreams: 20,
 };
 
 // Reducer function (pure function) for handling cake-related actions
@@ -33,6 +45,11 @@ const reducer = (state = initialState, action) => {
         ...state, // Copy the previous state
         numOfCakes: state.numOfCakes - 1, // Update the relevant property
       };
+    case BUY_ICECREAM:
+      return {
+        ...state,
+        numOfIceCreams: state.numOfIceCreams - 1,
+      };
 
     default:
       return state; // Return unchanged state for unknown action types
@@ -41,7 +58,7 @@ const reducer = (state = initialState, action) => {
 
 const store = createStore(reducer); // Create a store with the reducer
 
-console.log("Initial state:", store.getState()); // Log the initial state, getState() is a method of the store
+console.log("Initial state:", store.getState(), "\n"); // Log the initial state, getState() is a method of the store
 
 // At this point you are subscribed – Redux saves this function in the "Subscriptions" list.
 // store.subscribe() is a method to listen for state changes, it will be called whenever an action is dispatched
@@ -52,5 +69,9 @@ const unsubscribe = store.subscribe(() => {
 store.dispatch(buyCake()); // Dispatch the buyCake action to update the state and there for also calls store.subscribe()
 store.dispatch(buyCake()); // Dispatch another buyCake action to update the state again and there for also calls store.subscribe()
 store.dispatch(buyCake()); // Dispatch another buyCake action to update the state again and there for also calls store.subscribe()
+console.log("Now lets only sell Ice creams by dispatching the buyIceCream action creator: \n")
+store.dispatch(buyIceCream()); // Dispatch a buyIceCream action to update the state again and there for also calls store.subscribe()
+store.dispatch(buyIceCream()); // Dispatch another buyIceCream action to update the state again and there for also calls store.subscribe()
+
 unsubscribe(); // Unsubscribe from the store to stop listening for state changes
 console.log("Unsubscribed from store"); // Log that we have unsubscribed
