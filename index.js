@@ -1,6 +1,10 @@
 const redux = require("redux"); // Import redux library
+const reduxLogger = require("redux-logger");
+
 const createStore = redux.createStore; // Import createStore function from redux
 const combineReducers = redux.combineReducers;
+const applyMiddleware = redux.applyMiddleware;
+const logger = reduxLogger.createLogger();
 
 // Define a constant for the action type
 const BUY_CAKE = "BUY_CAKE";
@@ -76,15 +80,16 @@ const rootReducer = combineReducers({
   iceCream: iceCreamReducer, // Combine iceCreamReducer under the key 'iceCream'
 });
 
-const store = createStore(rootReducer); // Create a store with the reducer
+const store = createStore(rootReducer, applyMiddleware(logger)); // Create the Redux store with the rootReducer and applyMiddleware to log actions
+// The store is the central hub of the application state, it holds the current state and allows
+// dispatching actions to update the state.
+// The applyMiddleware function is used to add middleware to the store, in this case, redux-logger for logging actions and state changes.
 
 console.log("Initial state:", store.getState(), "\n"); // Log the initial state, getState() is a method of the store
 
 // At this point you are subscribed – Redux saves this function in the "Subscriptions" list.
 // store.subscribe() is a method to listen for state changes, it will be called whenever an action is dispatched
-const unsubscribe = store.subscribe(() => {
-  console.log("Updated state:", store.getState());
-});
+const unsubscribe = store.subscribe(() => {});
 store.dispatch(buyCake()); // Dispatch the buyCake action to update the state and there for also calls store.subscribe()
 store.dispatch(buyCake()); // Dispatch another buyCake action to update the state again and there for also calls store.subscribe()
 store.dispatch(buyCake()); // Dispatch another buyCake action to update the state again and there for also calls store.subscribe()
