@@ -1,5 +1,6 @@
 const redux = require("redux"); // Import redux library
 const createStore = redux.createStore; // Import createStore function from redux
+const combineReducers = redux.combineReducers;
 
 // Define a constant for the action type
 const BUY_CAKE = "BUY_CAKE";
@@ -31,24 +32,23 @@ function buyIceCream() {
    (previousState, action) => newState
 */
 
-// Define the initial state of the application
-const initialState = {
+// Define the initial cake state of the application
+const cakeInitialState = {
   numOfCakes: 10,
+};
+
+// Define the initial ice cream state of the application
+const iceCreamInitialState = {
   numOfIceCreams: 20,
 };
 
 // Reducer function (pure function) for handling cake-related actions
-const reducer = (state = initialState, action) => {
+const cakeReducer = (state = cakeInitialState, action) => {
   switch (action.type) {
     case BUY_CAKE:
       return {
         ...state, // Copy the previous state
         numOfCakes: state.numOfCakes - 1, // Update the relevant property
-      };
-    case BUY_ICECREAM:
-      return {
-        ...state,
-        numOfIceCreams: state.numOfIceCreams - 1,
       };
 
     default:
@@ -56,7 +56,27 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-const store = createStore(reducer); // Create a store with the reducer
+// Reducer function (pure function) for handling ice cream related actions
+const iceCreamReducer = (state = iceCreamInitialState, action) => {
+  switch (action.type) {
+    case BUY_ICECREAM:
+      return {
+        ...state,
+        numOfIceCreams: state.numOfIceCreams - 1,
+      };
+
+    default:
+      return state;
+  }
+};
+
+// Combine the reducers into a single root reducer
+const rootReducer = combineReducers({
+  cake: cakeReducer, // Combine cakeReducer under the key 'cake'
+  iceCream: iceCreamReducer, // Combine iceCreamReducer under the key 'iceCream'
+});
+
+const store = createStore(rootReducer); // Create a store with the reducer
 
 console.log("Initial state:", store.getState(), "\n"); // Log the initial state, getState() is a method of the store
 
@@ -65,11 +85,12 @@ console.log("Initial state:", store.getState(), "\n"); // Log the initial state,
 const unsubscribe = store.subscribe(() => {
   console.log("Updated state:", store.getState());
 });
-
 store.dispatch(buyCake()); // Dispatch the buyCake action to update the state and there for also calls store.subscribe()
 store.dispatch(buyCake()); // Dispatch another buyCake action to update the state again and there for also calls store.subscribe()
 store.dispatch(buyCake()); // Dispatch another buyCake action to update the state again and there for also calls store.subscribe()
-console.log("Now lets only sell Ice creams by dispatching the buyIceCream action creator: \n")
+console.log(
+  "Now lets only sell Ice creams by dispatching the buyIceCream action creator: \n"
+);
 store.dispatch(buyIceCream()); // Dispatch a buyIceCream action to update the state again and there for also calls store.subscribe()
 store.dispatch(buyIceCream()); // Dispatch another buyIceCream action to update the state again and there for also calls store.subscribe()
 
