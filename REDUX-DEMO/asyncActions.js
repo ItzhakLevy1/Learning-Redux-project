@@ -1,9 +1,14 @@
 const redux = require("redux");
 const axios = require("axios");
-const thunkMiddleware = require("redux-thunk").default; // Middleware for handling async actions
+const thunkMiddleware = require("redux-thunk").default;
+// Middleware that allows action creators to return a function instead of an action object (from the action creator).
+// This is useful for handling asynchronous operations, such as API calls and dispatching actions based on the results of those operations.
 
 const createStore = redux.createStore;
 const applyMiddleware = redux.applyMiddleware;
+// Enables applying middleware to the Redux store.
+// Middleware can intercept and modify dispatched actions before they reach the reducer.
+// This is useful for logging, crash reporting, performing asynchronous tasks, etc.
 
 // Initial state
 const initialState = {
@@ -24,16 +29,18 @@ const fetchUsersRequest = () => {
   };
 };
 
-const fetchUsersSuccess = (users) => ({
-  // users is the data fetched from the API
-  type: FETCH_USERS_SUCCESS,
-  payload: users, // The users data from the API response
+const fetchUsersSuccess = (users) => ({ // users is the data fetched from the API
+  type: FETCH_USERS_SUCCESS,  
+  payload: users, // The users data from the API response is passed as the payload
+  // payload is a property in the action object that contains the data to be used in the reducer
+  // In this case, it is the array of user IDs fetched from the API
 });
 
-const fetchUsersFailure = (error) => ({
-  // error is the error message from the API response
+const fetchUsersFailure = (error) => ({ // error is the error message from the API response
   type: FETCH_USERS_FAILURE,
-  payload: error, // The error message from the API response
+  payload: error, // The error message from the API response is passed as the payload
+  // payload is a property in the action object that contains the data to be used in the reducer
+  // In this case, it is the error message describing why the API call failed
 });
 
 // A reducer
@@ -81,8 +88,10 @@ const fetchUsers = () => {
   };
 };
 
-// Creating store with middleware thunk
-const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+const store = createStore(
+  reducer,
+  applyMiddleware(thunkMiddleware) // Apply middleware to the Redux store
+);
 
 // Listening to changes in the store, this will log the state whenever an action is dispatched
 store.subscribe(() => {
