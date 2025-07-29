@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { buyCake } from "../redux";
 
 function HooksCakeContainer() {
   // useSelector is a React-Redux hook that allows you to extract data from the Redux store state.
@@ -7,10 +8,14 @@ function HooksCakeContainer() {
   // In this case, we are selecting the "numOfCakes" value from the state and storing it inside of the numOfCakes variable.
   // It replaces mapStateToProps from the connect approach and the need to use props.
   const numOfCakes = useSelector((state) => state.numOfCakes);
+
+  // useDispatch returns a reference to the dispatch function from the Redux store.
+  // We use this to dispatch an action when the button is clicked.
+  const dispatch = useDispatch();
   return (
     <div>
       <h2>Num of cakes {numOfCakes}</h2>
-      <button>Buy Cake</button>
+      <button onClick={() => dispatch(buyCake())}>Buy Cake</button>
     </div>
   );
 }
