@@ -1,0 +1,18 @@
+import React from "react";
+import { useSelector } from "react-redux";
+
+function HooksCakeContainer() {
+  // useSelector is a React-Redux hook that allows you to extract data from the Redux store state.
+  // It takes a function that receives the entire Redux state and returns the part of the state you want.
+  // In this case, we are selecting the "numOfCakes" value from the state and storing it inside of the numOfCakes variable.
+  // It replaces mapStateToProps from the connect approach and the need to use props.
+  const numOfCakes = useSelector((state) => state.numOfCakes);
+  return (
+    <div>
+      <h2>Num of cakes {numOfCakes}</h2>
+      <button>Buy Cake</button>
+    </div>
+  );
+}
+
+export default HooksCakeContainer;
