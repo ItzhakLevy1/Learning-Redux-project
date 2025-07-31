@@ -3,6 +3,7 @@ import CakeContainer from "./components/CakeContainer";
 import { Provider } from "react-redux"; // Import Provider from react-redux to connect the Redux store to the React app
 import store from "./redux/store";
 import HooksCakeContainer from "./components/HooksCakeContainer";
+import IceCreamContainer from "./components/IceCreamContainer";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <div className="App">
         <HooksCakeContainer />
         <CakeContainer />
+        <IceCreamContainer />
       </div>
     </Provider>
   );

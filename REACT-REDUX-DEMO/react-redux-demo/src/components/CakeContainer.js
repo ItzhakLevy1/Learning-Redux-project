@@ -15,7 +15,7 @@ function CakeContainer(props) { // This is a functional component that receives 
 const mapStateToProps = (state) => {    // Gets the entire state as a parameter
   return {
     // Pulls state.numOfCakes from the store, and puts it into the props under the name numOfCakes, from this point on we can access it as props.numOfCakes
-    numOfCakes: state.numOfCakes,
+    numOfCakes: state.cake.numOfCakes,
   };
 };
 
