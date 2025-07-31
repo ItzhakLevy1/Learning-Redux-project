@@ -4,6 +4,7 @@ import { Provider } from "react-redux"; // Import Provider from react-redux to c
 import store from "./redux/store";
 import HooksCakeContainer from "./components/HooksCakeContainer";
 import IceCreamContainer from "./components/IceCreamContainer";
+import SodaContainer from "./components/SodaContainer";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <HooksCakeContainer />
         <CakeContainer />
         <IceCreamContainer />
+        <SodaContainer />
       </div>
     </Provider>
   );
