@@ -5,15 +5,19 @@ import store from "./redux/store";
 import HooksCakeContainer from "./components/HooksCakeContainer";
 import IceCreamContainer from "./components/IceCreamContainer";
 import SodaContainer from "./components/SodaContainer";
+import CoffeeContainer from "./components/CoffeeContainer";
 
 function App() {
   return (
-    <Provider store={store}> {/* Wrap the app with Provider and pass the store as prop, this will provide the store to all comonents*/}
+    <Provider store={store}>
+      {" "}
+      {/* Wrap the app with Provider and pass the store as prop, this will provide the store to all comonents*/}
       <div className="App">
         <HooksCakeContainer />
         <CakeContainer />
         <IceCreamContainer />
         <SodaContainer />
+        <CoffeeContainer />
       </div>
     </Provider>
   );
