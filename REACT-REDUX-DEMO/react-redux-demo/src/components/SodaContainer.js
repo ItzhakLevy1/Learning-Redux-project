@@ -34,5 +34,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+// If you want to use the action creator directly without mapDispatchToProps, you can uncomment the following lines
+// const mapDispatchToProps = {
+//   buySoda,
+// };
+
 // Export the connect with both mapping functions passed into it and the name of the component (SodaContainer) at the outer parenthesis
 export default connect(mapStateToProps, mapDispatchToProps)(SodaContainer);
