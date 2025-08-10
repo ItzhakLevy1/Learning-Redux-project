@@ -12,7 +12,7 @@ const sodaReducer = (state = initialState, action) => {
     case BUY_SODA:
       return {
         ...state,
-        numOfSodas: state.numOfSodas - 1,
+        numOfSodas: state.numOfSodas - action.payload,
       };
     default:
       return state;
