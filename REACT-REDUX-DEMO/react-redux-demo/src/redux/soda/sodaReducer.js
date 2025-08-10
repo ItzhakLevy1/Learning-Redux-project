@@ -11,8 +11,8 @@ const sodaReducer = (state = initialState, action) => {
   switch (action.type) {
     case BUY_SODA:
       return {
-        ...state,
-        numOfSodas: state.numOfSodas - action.payload,
+        ...state, // Maintain the current state
+        numOfSodas: state.numOfSodas - action.payload,  // Decrease the number of sodas by action.payload instead of by 1
       };
     default:
       return state;
